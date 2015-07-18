@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8" />
 	<link href='https://fonts.googleapis.com/css?family=Coming+Soon' rel='stylesheet' type='text/css'>
- 	<title>Derpmaster's Awesome Product Search of Awesome of BestBuy&trade;</title>
+ 	<title></title>
  	<style>
  	*{
  		font-family: 'Coming Soon', sans-serif;
@@ -88,10 +88,6 @@
     </script>
   <script>
 	"use strict";
-		var BEST_BUY_URL = "https://api.remix.bestbuy.com/v1/stores(city="
-		var BEST_BUY_URL1 = ")+products(name=";
-		var BEST_BUY_URL2 = "*)?show=name,address,postalCode,city,region,lat,lng,products.addToCartUrl,products.name,products.image,products.inStoreAvailability,products&format=json&callback=eventJsonLoaded&apiKey=";
-		var BEST_BUY_API_KEY = "e56vxn9bzu5s2ead9phxjspu";
 		var RETURN_KEY = 13;
 		var map;
 		var infowindow;
@@ -100,8 +96,6 @@
 		window.onload = init;
 		
 		function init(){
-			document.querySelector("#search").onclick = doSearchForEvent;
-			document.querySelector("#searchterm").onkeyup = doKeyup;
 			
 			var mapOptions = { center: { lat:39.828127, lng: -98.579404},zoom:3};
 			map = new google.maps.Map(document.getElementById('map-div'),mapOptions);
@@ -147,7 +141,7 @@
 			}
 		}
 		
-		function doSearchForEvent(){
+		/*function doSearchForEvent(){
 			// build up our URL string
 			clearMarkers();
 			var value = document.querySelector("#searchterm").value;
@@ -186,10 +180,10 @@
 			s.src = url;
 			var h = document.getElementsByTagName('script')[0];
 			h.parentNode.insertBefore(s,h);
-		}
+		}*/
 		
 		
-		function eventJsonLoaded(obj){
+		/*function eventJsonLoaded(obj){
 			console.log("obj = " +obj);
 			console.log("obj stringified = " + JSON.stringify(obj));
 			
@@ -210,7 +204,7 @@
 				If there is only one event, Last.fm returns a single object, NOT an
 				array. This is really annoying behavior!
 			*/
-			if (!(allEvents instanceof Array)){
+			/*if (!(allEvents instanceof Array)){
 				allEvents = [allEvents]; // put the object in an array
 			}
 			if(allEvents.length <1)
@@ -255,7 +249,7 @@
 						line += "<td><input id='search' type='button' value='Let Me Buy it!' onclick='window.open(\"" + buyURL + "\")'></td>";
 						line+="</tr>";
 					}
-					// get a bunch of values*/
+					// get a bunch of values
 					line+= "</table>";
 					line += "</div>";
 					bigString += line;
@@ -267,23 +261,13 @@
 			document.querySelector("#dynamicContent").innerHTML = bigString;
 			$("#dynamicContent").fadeIn(1000);
 			
-		}	
+		}	*/
  
   
   </script>
 </head>
 <body>
 <div align="center" id="content">
-	<h1>Derpmaster's Search of Awesome of BestBuy!</h1>
-	<p><i>Your awesome search for awesome stuff!</i></p>
-	
-	<div>
-	<label>Enter a product name -&gt;</label> <input id="searchterm" type="text" size="20" maxlength="20" value="Stuff" autofocus /> 
-	</div><div>
-	<label>Enter City -&gt;</label> <input id="zip" type="text" size="31" maxlength="31" value="Rochester" autofocus/>
-	</div>
-	<button type="button" id="search">Find Products!<br>:D<br>DO IT NAO</button>
-	<h2>Search Results</h2>
 	<div id="map-div"></div>
 	<div id="dynamicContent">
 		<p>No data yet!</p>
