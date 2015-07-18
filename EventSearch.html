@@ -37,6 +37,10 @@
  		border:1px solid gray;
  	}
  	
+ 	table{
+ 	 width: 100%;
+ 	}
+ 	
  	#search{
  		box-shadow:inset 0px 1px 0px 0px #f7c5c0;
  		background-color:#bf607B;
@@ -102,10 +106,10 @@
 			map = new google.maps.Map(document.getElementById('map-div'),mapOptions);
 		}
 		
-		 function addMarker(lat,lon,title){
+		 function addMarker(lat,lon,title,date){
 		var pos = {lat: lat, lng: lon, title: title};
 		var marker = new google.maps.Marker({position: pos, map: map});
-		marker.setTitle(title);
+		marker.setTitle(title + "-" + date);
 		 google.maps.event.addListener(marker, 'click', function(e){
 		makeInfoWindow(this.position, this.title);
 		
@@ -131,7 +135,7 @@
 	  function zoomOnFirstResult(allEvents){
 		if(markers.length ==0) return;
 		
-		var mapOptions = { center: { lat:Number(allEvents[0].lat), lng: Number(allEvents[0].lng)},zoom:12};
+		var mapOptions = { center: { lat:Number(allEvents[0].latitude), lng: Number(allEvents[0].longitude)},zoom:12};
 		map.setOptions(mapOptions);
 	  }
 		
@@ -170,7 +174,7 @@
 		
 		function eventJsonLoaded(obj){
 			//console.log(JSON.stringify(obj));
-			
+			clearMarkers();
 			if(obj.error){ //if something goes wrong
 				var message = obj.message;
 				document.querySelector("#dynamicContent").innerHMTML = "<b>Error: " + message + "</b>";
@@ -185,6 +189,51 @@
 			}
 			
 			var allEvents = obj.events.event;
+			
+			var name;
+			var address;
+			var locName;
+			var startTime;
+			var lat;
+			var lng;
+			var bigString;
+			
+			for(var i=0; i < allEvents.length; i++)
+			{
+				bigString = "<table border=1px>";
+				var event = allEvents[i];
+				name = event.title;
+				var street = event.venue_address;
+				if(street == "null")
+				{
+					street = "";
+				}
+				var city = event.city_name;
+				if(city == "null")
+				{
+					city = "";
+				}
+				var state = event.region_abbr;
+				if(state == "null")
+				{
+					state="";
+				}
+				address = street + "    " + city + ", " + state;
+				locName = event.venue_name;
+				startTime = event.start_time;
+				lat = Number(event.latitude);
+				lng = Number(event.longitude);
+				bigString+="<tr><td>Event:</td><td colspan=2>" + name + "</td></tr> ";
+				bigString+="<tr><td>Location:</td><td>" + locName + "</td><td>" + address + "</td></tr>";
+				bigString+="</table>";
+				bigString+="<br>";
+				document.querySelector("#dynamicContent").innerHTML += bigString;
+				addMarker(lat,lng,name,startTime);
+			}
+			
+			
+			$("#dynamicContent").fadeIn(1000);
+			zoomOnFirstResult(allEvents);
 		}
  
   
