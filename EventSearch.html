@@ -169,7 +169,22 @@
 		}
 		
 		function eventJsonLoaded(obj){
-			console.log(JSON.stringify(obj));
+			//console.log(JSON.stringify(obj));
+			
+			if(obj.error){ //if something goes wrong
+				var message = obj.message;
+				document.querySelector("#dynamicContent").innerHMTML = "<b>Error: " + message + "</b>";
+				$("#dynamicContent").fadeIn(1000);
+				return;	
+			}
+			
+			if(obj.total_items & obj.total_items == 0){
+				document.querySelector("#dynamicContent").innerHTML="<p>No events found</p>";
+				$("#dynamicContent").fadeIn(1000);
+				return;	
+			}
+			
+			var allEvents = obj.events.event;
 		}
  
   
