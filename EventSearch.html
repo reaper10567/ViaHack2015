@@ -227,6 +227,9 @@ p {
 		map.setOptions(mapOptions);
 	  }
 		
+	 function createNewEvent(){
+	 	location.href="#modal-one";
+	 }
 		function doKeyup(e){
 			if(e.keyCode == RETURN_KEY){
 				doSearchForEvent();
@@ -268,6 +271,18 @@ p {
 			document.querySelector("#lng").value = lng;
 			
 			location.href = "#modal-one";
+		}
+		
+		function closeModalView(addToDB){
+			if(addToDB){
+			}
+			document.querySelector("#name").value = null;
+			document.querySelector("#loc").value = null;
+			document.querySelector("#startTime").value = null;
+			document.querySelector("#endTime").value = null;
+			document.querySelector("#lat").value = null;
+			document.querySelector("#lng").value = null;
+			location.href = "#close";
 		}
 		
 		function doSearchForEvent(){
@@ -385,6 +400,7 @@ p {
 	</div>
 	<button type="button" id="search">Find Events in Eventful!</button>
 	<button type="button" id="osearch">Find Viasat Events!</button>
+	<button type="button" id="customEvent" onclick='createNewEvent();'>Create a Custom Event!</button>
 	<div id="map-div"></div>
 	<div class="modal" id="modal-one" aria-hidden="true">
   		<div class="modal-dialog">
@@ -393,16 +409,17 @@ p {
       			<a href="#close" class="btn-close" aria-hidden="true">×</a> <!--CHANGED TO "#close"-->
     		</div>
     		<div class="modal-body">
-      			<label for="#name">Event Name</label><input type="text" id="name" value="Event Name"></input><br>
-      			<label for="#loc">Location</label><input type="text" id="loc" value="Event Location"></input><br>
+      			<label for="#name">Event Name</label><input type="text" id="name" placeholder="Event Name"></input><br>
+      			<label for="#loc">Location</label><input type="text" id="loc" placeholder="Event Location" size=35></input><br>
       			<label for="#email">Your email</label><input type="text" id="email" value="Email"></input><br>
-      			<label for="#startTime">Start Time (yyyy-mm-dd hh:mm:ss timezone)</label><input type="text" id="startTime" value="(yyyy-mm-dd hh:mm:ss timezone)"></input><br>
-      			<lable for="#endTime">End Time (yyyy-mm-dd hh:mm:ss timezone)</label><input type="text" id="endTime" value="(yyyy-mm-dd hh:mm:ss timezone)"></input><br>
+      			<label for="#startTime">Start Time (yyyy-mm-dd hh:mm:ss)</label><input type="text" id="startTime" placeholder="(yyyy-mm-dd hh:mm:ss)"></input><br>
+      			<lable for="#endTime">End Time (yyyy-mm-dd hh:mm:ss)</label><input type="text" id="endTime" placeholder="(yyyy-mm-dd hh:mm:ss)"></input><br>
       			<input type="hidden" id="lat" value="">
       			<input type="hidden" id="lng" value="">
     		</div>
     		<div class="modal-footer">
-      			<button onclick="location.href='#close';" class="btn">Nice!</button>  <!--CHANGED TO "#close"-->
+    			<button onclick="closeModalView(false);" class="btn">Cancel</button>
+      			<button onclick="closeModalView(true);" class="btn">Submit</button>  <!--CHANGED TO "#close"-->
     		</div>
     	</div>
     </div>
