@@ -246,12 +246,13 @@ p {
 	  		bigString+="</table>";
 			bigString+="<br>";
 			document.querySelector("#dynamicContent").innerHTML += bigString;
-			$("#dynamicContent").fadeIn(1000);
+			addMarker(Number(lat),Number(lng),name + " - " + startTime);
 	  	}
+	  	$("#dynamicContent").fadeIn(1000);
 	  }
 	  
 	  function joinEvent(id){
-	  	document.querySelector("#idJoin") = id;
+	  	document.querySelector("#idJoin").value = id;
 	  	location.href="#modal-three";
 	  	
 	  }
