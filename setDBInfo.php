@@ -1,8 +1,8 @@
 <?php
 	require_once("mylib.php");
 	
-	echo ("trying to do stuff")
-	$db = opendb();
+	echo ("trying to do stuff");
+	$db = open_db();
 	log_to_db($db);
 	
 	
@@ -10,8 +10,9 @@
 		$ERROR_MSG = "usage logger.php?u=user&n=name&t=startTime&a=address&e=email&la=latitude&ln=longitude&k=key";
 		
 		//Grab the values from the original query string
-		$name = (array_key_exists('n',$_GET)) ?  sanitize_string($_GET['n']) : die($ERROR_MSG);
 		$user = (array_key_exists('u',$_GET)) ?  sanitize_string($_GET['u']) : die($ERROR_MSG);
+		$name = (array_key_exists('n',$_GET)) ?  sanitize_string($_GET['n']) : die($ERROR_MSG);
+		
 		$startTime = (array_key_exists('t',$_GET)) ?  sanitize_string($_GET['t']) : die($ERROR_MSG);
 		$address = (array_key_exists('a',$_GET)) ?  sanitize_string($_GET['a']) : die($ERROR_MSG);
 		$email = (array_key_exists('e',$_GET)) ?  sanitize_string($_GET['e']) : die($ERROR_MSG);
@@ -25,7 +26,7 @@
 		echo ("\$queryString=$queryString<br>");
 		$result = $db->query($queryString);
 		$numRows = count($result->fetchAll());
-		
+		echo ($numRows);
 		// #3 - no match? Exit program!
 		if ($numRows == 0) die("Bad username or key!");
 		
@@ -34,3 +35,4 @@
 		
 		$result = $db->query($queryString);
 	}
+	?>
