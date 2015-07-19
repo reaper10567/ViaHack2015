@@ -15,6 +15,18 @@ input {
 }
 p {
   margin-bottom: 20px;
+  text-align: center;
+}
+.btn-close {
+  color: #aaaaaa;
+  font-size: 30px;
+  text-decoration: none;
+  position: absolute;
+  right: 5px;
+  top: 0;
+}
+.btn-close:hover {
+  color: #919191;
 }
 .modal:before {
   content: "";
@@ -144,7 +156,7 @@ p {
 	#map-div{
 		margin:0;
 		padding:0;
-		width:542px;
+		width:70%;
 		height:300px;
 		border:1px solid black;
 	}
@@ -167,6 +179,7 @@ p {
 	"use strict";
 		var searchURL = "http://api.eventful.com/json/events/search?app_key=RtZVKXvZT8NtL3Nx&within=25&page_size=200";
 		var RETURN_KEY = 13;
+		var url;
 		var map;
 		var infowindow;
 		var markers = [];
@@ -176,6 +189,7 @@ p {
 		function init(){
 			document.querySelector("#search").onclick = doSearchForEvent;
 			document.querySelector("#searchterm").onkeyup = doKeyup;
+			document.querySelector("#city").onkeyup = doKeyup;
 			var mapOptions = { center: { lat:39.828127, lng: -98.579404},zoom:3};
 			map = new google.maps.Map(document.getElementById('map-div'),mapOptions);
 		}
@@ -183,7 +197,7 @@ p {
 		 function addMarker(lat,lon,title,date){
 		var pos = {lat: lat, lng: lon, title: title};
 		var marker = new google.maps.Marker({position: pos, map: map});
-		marker.setTitle(title + "-" + date);
+		marker.setTitle("Event Name " + title + "\nTime/Date: " + date);
 		 google.maps.event.addListener(marker, 'click', function(e){
 		makeInfoWindow(this.position, this.title);
 		
@@ -215,8 +229,11 @@ p {
 		
 		function doKeyup(e){
 			if(e.keyCode == RETURN_KEY){
-				
+				doSearchForEvent();
 			}
+		}
+		
+		function createModalView(){
 		}
 		
 		function doSearchForEvent(){
@@ -233,7 +250,7 @@ p {
 			}			
 			
 			//build the URL
-			var url = searchURL;
+			url = searchURL;
 			url += "&location="+zip;
 			url+= "&keywords="+value;
 			
@@ -302,7 +319,7 @@ p {
 				bigString+="<tr><td>Location:</td><td>" + locName + "</td><td>" + address + "</td></tr>";
 				if(true)//if the event doesn't exist in the DB already
 				{
-					bigString+="<tr><td colspan=3 style='text-align:center;'><button id='createNewEvent'>Create a Viasat Event for this</button></td></tr>";
+					bigString+="<tr><td colspan=3 style='text-align:center;'><button name='"+i+"' id='createNewEvent' onclick=\"createModalView();\">Create a Viasat Event for this</button></td></tr>";
 				}
 				else //if the event DOES exist in the DB
 				{
@@ -334,30 +351,29 @@ p {
 	</div>
 	<button type="button" id="search">Find Events in Eventful!</button>
 	<button type="button" id="osearch">Find Viasat Events!</button>
-	<!--<div class="wrap">
-		<a href="#modal-one" class="btn btn-big">Modal!</a>
-	</div>--!>
 	<div id="map-div"></div>
-	<div id="dynamicContent">
-		<p>Search results will be shown here</p>
-	</div>
-	<!-- Modal -->
 	<div class="modal" id="modal-one" aria-hidden="true">
   		<div class="modal-dialog">
     		<div class="modal-header">
-      			<h2>Modal in CSS?</h2>
+      			<h2>Create an Event!</h2>
       			<a href="#close" class="btn-close" aria-hidden="true">×</a> <!--CHANGED TO "#close"-->
     		</div>
     		<div class="modal-body">
-      			<p>One modal example here! :D</p>
+      			<label for="#name">Event Name</label><input type="text" id="name" value="Event Name"></input><br>
+      			<label for="#loc">Location</label><input type="text" id="loc" value="Event Location"></input><br>
+      			<label for="#email">Your email</label><input type="text" id="email" value="Email"></input><br>
     		</div>
     		<div class="modal-footer">
-      			<a href="#close" class="btn">Nice!</a>  <!--CHANGED TO "#close"-->
+      			<button onclick="location.href='#close';" class="btn">Nice!</button>  <!--CHANGED TO "#close"-->
     		</div>
     	</div>
-  	</div>
-<!--/modal-->
+    </div>
+	<div id="dynamicContent">
+		<p>Search results will be shown here</p>
+	</div>
+	
 </div>
+	
 
 </body>
 </html>
