@@ -1,4 +1,12 @@
-var nodemailer = require('nodemailer');
+var xmlHttp = new XMLHttpRequest();
+var eventName = "ViaSat Hackathon";
+xmlHttp.open("GET","http://localhost:8000/index.php?id=1&eventName="+eventName,false);
+xmlHttp.send(null);
+var receive = xmlHttp.responseText;
+var jsonStr = JSON.stringify(receive);
+document.getElementById("secretKey").innerHTML=jsonStr;
+
+/*var nodemailer = require('nodemailer');
 var msg_subject = 'hi';
 var msg_text = 'Yoyo your event is up';
 var emails = ['suwa_rna@yahoo.com', 'tyler.gerber@viasat.com'];
@@ -18,4 +26,4 @@ transporter.sendMail({
     text: msg_text
 });
 
-}
+}*/
