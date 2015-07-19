@@ -183,6 +183,7 @@ p {
 		var infowindow;
 		var allEvents;
 		var markers = [];
+		var DBResult;
 	
 		window.onload = init;
 		
@@ -221,27 +222,35 @@ p {
 	  		location.href="#modal-two";
 	  		return;
 	  	}
+	  	
 	  	var searchTerm = document.querySelector("#DBsearchTerm").value;
+	  	document.querySelector("#dynamicContent").innerHTML = "<b>Searching for " + searchTerm + "</b>";
 	  	
 	  	var url = "index.php?id="+typeOfSearch+"&searchTerm="+searchTerm;
-	  	/*var xhr = new XMLHttpRequest();
-	  	
-	  	xhr.open("GET",url,true);
-	  	xhr.onreadystatechange=function(){
-	  		if(xhr.readyState==4 && xhr.status==200){
-	  		
-	  			var results = xhr.responseText;
-	  			
-	  			}
-	  	}
-	  	xhr.send(null);*/
+	  	$("#dynamicContent").fadeOut(250);
 	  	$.getJSON(url).done(function(data){eventDBLoaded(data);});
 	  	
 	  }
 	  function eventDBLoaded(obj){
-	  	console.log(obj[0]);
+	  	DBResult = obj;
 	  	
-	  	
+	  	for(var i=0; i < obj.length; i++)
+	  	{
+	  		var bigString = "<table border=1px>";
+	  		var name = obj[i][1];
+	  		var loc = obj[i][2];
+	  		var startTime = obj[i][5];
+	  		var lat= obj[i][7];
+	  		var lng = obj[i][8];
+	  		bigString+= "<tr><td>Event Name:</td><td>"+name+"</td></tr>";
+	  		bigString+="<tr><td>Time/Date:</td><td>"+startTime+"</td></tr>";
+	  		bigString+="<tr><td>Event Location:</td><td>"+loc+"</td></tr>";
+	  		bigString+="<tr><td colspan=2 style='text-align:center;'><button id="+i+" type='button' onclick='joinEvent("+i+");'>Join Event!</button</td></tr>";
+	  		bigString+="</table>";
+			bigString+="<br>";
+			document.querySelector("#dynamicContent").innerHTML += bigString;
+			$("#dynamicContent").fadeIn(1000);
+	  	}
 	  }
 	  
 	  function doOtherKeyUp(e){
@@ -423,13 +432,7 @@ p {
 				bigString+="<tr><td>Event:</td><td colspan=2>" + name + "</td></tr> ";
 				bigString+="<tr><td>Time/Date:</td><td colspan=2>" + startTime + "</td></tr>";
 				bigString+="<tr><td>Location:</td><td>" + locName + "</td><td>" + address + "</td></tr>";
-				if(true)//if the event doesn't exist in the DB already
-				{
-					bigString+="<tr><td colspan=3 style='text-align:center;'><button id='createNewEvent' onclick=\"createModalView("+i+");\">Create a Viasat Event for this</button></td></tr>";
-				}
-				else //if the event DOES exist in the DB
-				{
-				}
+				bigString+="<tr><td colspan=3 style='text-align:center;'><button id='createNewEvent' onclick=\"createModalView("+i+");\">Create a Viasat Event for this</button></td></tr>";
 				bigString+="</table>";
 				bigString+="<br>";
 				document.querySelector("#dynamicContent").innerHTML += bigString;
@@ -494,6 +497,21 @@ p {
     		</div>
     		<div class="modal-footer">
       			<button onclick="closeErrorView();" class="btn">OK</button>  <!--CHANGED TO "#close"-->
+    		</div>
+    	</div>
+    </div>
+   <div class="modal" id="modal-three" aria-hidden="true">
+  		<div class="modal-dialog">
+    		<div class="modal-header">
+      			<h2>Create an Event!</h2>
+      			<a href="#close" class="btn-close" aria-hidden="true">×</a> <!--CHANGED TO "#close"-->
+    		</div>
+    		<div class="modal-body">
+      			<label for="#email1">Your email</label><input type="text" id="email" value="Email"/></br>
+    		</div>
+    		<div class="modal-footer">
+    			<button onclick="closeModalView(false);" class="btn">Cancel</button>
+      			<button onclick="closeModalView(true);" class="btn">Submit</button>  <!--CHANGED TO "#close"-->
     		</div>
     	</div>
     </div>
