@@ -59,12 +59,11 @@ p {
   background: #fefefe;
   border: #333333 solid 1px;
   border-radius: 5px;
-  margin-left: -200px;
   position: fixed;
-  left: 50%;
+  left: 12%;
   top: -100%;
   z-index: 11;
-  width: 360px;
+  width: 75%;
   -webkit-transform: translate(0, -500%);
   -ms-transform: translate(0, -500%);
   transform: translate(0, -500%);
@@ -187,6 +186,7 @@ p {
 		var url;
 		var map;
 		var infowindow;
+		var allEvents;
 		var markers = [];
 	
 		window.onload = init;
@@ -238,7 +238,41 @@ p {
 			}
 		}
 		
-		function createModalView(){
+		function createModalView(spotInArray){
+			var event = allEvents[spotInArray];
+			var name = event.title;
+			var address;
+			var locName = event.venue_name;
+			var startTime = event.start_time;
+			var endTime = event.stop_time;
+			var lat = event.latitude;
+			var lng = event.longitude;
+			
+			var street = event.venue_address;
+				if(street == "null")
+				{
+					street = "";
+				}
+				var city = event.city_name;
+				if(city == "null")
+				{
+					city = "";
+				}
+				var state = event.region_abbr;
+				if(state == "null")
+				{
+					state="";
+				}
+				address = street + "    " + city + ", " + state;
+			
+			document.querySelector("#name").value = name;
+			document.querySelector("#loc").value = address;
+			document.querySelector("#startTime").value = startTime;
+			document.querySelector("#endTime").value = endTime;
+			document.querySelector("#lat").value = lat;
+			document.querySelector("#lng").value = lng;
+			
+			location.href = "#modal-one";
 		}
 		
 		function doSearchForEvent(){
@@ -284,7 +318,7 @@ p {
 				return;	
 			}
 			
-			var allEvents = obj.events.event;
+			allEvents = obj.events.event;
 			
 			var name;
 			var address;
@@ -324,7 +358,7 @@ p {
 				bigString+="<tr><td>Location:</td><td>" + locName + "</td><td>" + address + "</td></tr>";
 				if(true)//if the event doesn't exist in the DB already
 				{
-					bigString+="<tr><td colspan=3 style='text-align:center;'><button name='"+i+"' id='createNewEvent' onclick=\"createModalView();\">Create a Viasat Event for this</button></td></tr>";
+					bigString+="<tr><td colspan=3 style='text-align:center;'><button id='createNewEvent' onclick=\"createModalView("+i+");\">Create a Viasat Event for this</button></td></tr>";
 				}
 				else //if the event DOES exist in the DB
 				{
@@ -367,6 +401,10 @@ p {
       			<label for="#name">Event Name</label><input type="text" id="name" value="Event Name"></input><br>
       			<label for="#loc">Location</label><input type="text" id="loc" value="Event Location"></input><br>
       			<label for="#email">Your email</label><input type="text" id="email" value="Email"></input><br>
+      			<label for="#startTime">Start Time (yyyy-mm-dd hh:mm:ss timezone)</label><input type="text" id="startTime" value="(yyyy-mm-dd hh:mm:ss timezone)"></input><br>
+      			<lable for="#endTime">End Time (yyyy-mm-dd hh:mm:ss timezone)</label><input type="text" id="endTime" value="(yyyy-mm-dd hh:mm:ss timezone)"></input><br>
+      			<input type="hidden" id="lat" value="">
+      			<input type="hidden" id="lng" value="">
     		</div>
     		<div class="modal-footer">
       			<button onclick="location.href='#close';" class="btn">Nice!</button>  <!--CHANGED TO "#close"-->
