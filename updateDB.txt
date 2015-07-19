@@ -1,0 +1,19 @@
+<?php
+	require_once("mylib.php");
+	
+	echo ("trying to do stuff");
+	$db = open_db();
+	log_to_db($db);
+	
+	
+	function update_to_db($db){
+		//Grab the values from the original query string
+		$id = (array_key_exists('i',$_GET)) ?  sanitize_string($_GET['i']) : die("Some Error");
+		$email = (array_key_exists('e',$_GET)) ?  sanitize_string($_GET['e']) : die("Some Error");
+
+$queryString = ("UPDATE Events SET Emails='$email', WHERE  ID='$id'");
+		
+echo ("\$queryString=$queryString<br>");
+$result = $db->query($queryString);
+echo ("Updated");
+?>
