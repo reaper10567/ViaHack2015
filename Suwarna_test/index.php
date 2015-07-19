@@ -14,16 +14,17 @@ $id = $_GET['id'];
 
 
 if($id == "1"){
-$eventName = $_GET['eventName'];
-/*$db = new SQLite3('Events.sqlite');
+$eventName = "ViaSat Hackathon";
+$db = new SQLite3('Events.sqlite');
+$lists = [];
 
-$eventName = $_GET['eventName'];
-$results1 = $db->query("SELECT MemberNames FROM Events where EventName = ViaSat Hackathon");
+$results1 = $db->query("SELECT Emails FROM Events where EventName = '$eventName'");
 while ($row = $results1->fetchArray()){
-    printf("Member : %s", $row[0]);
-}*/
-$data1 = array("Hi", $eventName);
-echo json_encode($data1);
+	array_push($lists, $row[0]);
+    //printf("Member : %s", $row[0]);
+}
+
+echo json_encode($lists);
 }
 
 
