@@ -11,41 +11,43 @@ header('Content-type: application/json');
 
 $id = $_GET['id'];
 $db = new SQLite3('Events.sqlite');
-$lists = [];
+
+$searchTerm = $_GET['searchTerm'];
 // Search for emails by event
 if($id == "1"){
-$eventName = $_GET['eventName'];
-$results1 = $db->query("SELECT Emails FROM Events where EventName = 'ViaSat Hackathon'");
+$results1 = $db->query("SELECT * FROM Events where EventName = '$searchTerm'");
 }
 // Search for events by location
 else if($id == "2"){
-$location = $_GET['location'];
-$results1 = $db->query("SELECT EventName FROM Events where Location = '$location'");
+$results1 = $db->query("SELECT * FROM Events where Location = '$searchTerm'");
 }
 // Search for events by date
 else if($id == "3"){
-$date = $_GET['date'] . "%";
-$results1 = $db->query("SELECT EventName FROM Events where DateTime LIKE '$date'");
+$searchTerm = $searchTerm . "%";
+$results1 = $db->query("SELECT * FROM Events where DateTime LIKE '$searchTerm'");
 }
 
 if(!$results1){
 	throw new Exception("Database Error");
 }
+$allResults = [];
 
 while ($row = $results1->fetchArray()){
+   $lists = [];
    array_push($lists, $row[0]);
+   array_push($lists, $row[1]);
+   array_push($lists, $row[2]);
+   array_push($lists, $row[3]);
+   array_push($lists, $row[4]);
+   array_push($lists, $row[5]);
+   array_push($lists, $row[6]);
+   array_push($lists, $row[7]);
+   array_push($lists, $row[8]);
+   array_push($lists, $row[9]);
+   array_push($allResults, $lists);
 }
-echo json_encode($lists);
 
+echo json_encode($allResults);
 
-
-// Here's some data that we want to send via JSON.
-// We'll include the $id parameter so that we
-// can show that it has been passed in correctly.
-// You can send whatever data you like.
-$data = array("Hello", $id);
-
-// Send the data.
-echo json_encode($data);
 
 ?>

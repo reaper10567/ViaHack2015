@@ -213,8 +213,35 @@ p {
 	  }
 	  
 	  function doDBSearch(){
+	  	clearMarkers();
 	  	var typeOfSearch = document.querySelector("#typeOfSearch").value;
+	  	if(typeOfSearch != 1 && typeOfSearch != 2 && typeOfSearch != 3)
+	  	{
+	  		document.querySelector("#errorMessage").innerHTML = "Error! Invalid input for the type of search! Please choose 1,2,or 3 and try again!";
+	  		location.href="#modal-two";
+	  		return;
+	  	}
 	  	var searchTerm = document.querySelector("#DBsearchTerm").value;
+	  	
+	  	var url = "index.php?id="+typeOfSearch+"&searchTerm="+searchTerm;
+	  	/*var xhr = new XMLHttpRequest();
+	  	
+	  	xhr.open("GET",url,true);
+	  	xhr.onreadystatechange=function(){
+	  		if(xhr.readyState==4 && xhr.status==200){
+	  		
+	  			var results = xhr.responseText;
+	  			
+	  			}
+	  	}
+	  	xhr.send(null);*/
+	  	$.getJSON(url).done(function(data){eventDBLoaded(data);});
+	  	
+	  }
+	  function eventDBLoaded(obj){
+	  	console.log(obj[0]);
+	  	
+	  	
 	  }
 	  
 	  function doOtherKeyUp(e){
