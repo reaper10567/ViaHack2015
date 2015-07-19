@@ -184,6 +184,7 @@ p {
 	"use strict";
 		var searchURL = "http://api.eventful.com/json/events/search?app_key=RtZVKXvZT8NtL3Nx&within=25&page_size=200";
 		var RETURN_KEY = 13;
+		var url;
 		var map;
 		var infowindow;
 		var markers = [];
@@ -193,6 +194,7 @@ p {
 		function init(){
 			document.querySelector("#search").onclick = doSearchForEvent;
 			document.querySelector("#searchterm").onkeyup = doKeyup;
+			document.querySelector("#city").onkeyup = doKeyup;
 			var mapOptions = { center: { lat:39.828127, lng: -98.579404},zoom:3};
 			map = new google.maps.Map(document.getElementById('map-div'),mapOptions);
 		}
@@ -236,6 +238,9 @@ p {
 			}
 		}
 		
+		function createModalView(){
+		}
+		
 		function doSearchForEvent(){
 			// build up our URL string
 			clearMarkers();
@@ -250,7 +255,7 @@ p {
 			}			
 			
 			//build the URL
-			var url = searchURL;
+			url = searchURL;
 			url += "&location="+zip;
 			url+= "&keywords="+value;
 			
@@ -319,7 +324,7 @@ p {
 				bigString+="<tr><td>Location:</td><td>" + locName + "</td><td>" + address + "</td></tr>";
 				if(true)//if the event doesn't exist in the DB already
 				{
-					bigString+="<tr><td colspan=3 style='text-align:center;'><button id='createNewEvent"+i+"' onclick=\"location.href='#modal-one';\">Create a Viasat Event for this</button></td></tr>";
+					bigString+="<tr><td colspan=3 style='text-align:center;'><button name='"+i+"' id='createNewEvent' onclick=\"createModalView();\">Create a Viasat Event for this</button></td></tr>";
 				}
 				else //if the event DOES exist in the DB
 				{
@@ -352,9 +357,6 @@ p {
 	<button type="button" id="search">Find Events in Eventful!</button>
 	<button type="button" id="osearch">Find Viasat Events!</button>
 	<div id="map-div"></div>
-	<div id="dynamicContent">
-		<p>Search results will be shown here</p>
-	</div>
 	<div class="modal" id="modal-one" aria-hidden="true">
   		<div class="modal-dialog">
     		<div class="modal-header">
@@ -371,6 +373,10 @@ p {
     		</div>
     	</div>
     </div>
+	<div id="dynamicContent">
+		<p>Search results will be shown here</p>
+	</div>
+	
 </div>
 	
 
