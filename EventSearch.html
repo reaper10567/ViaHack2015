@@ -253,6 +253,22 @@ p {
 	  	}
 	  }
 	  
+	  function joinEvent(id){
+	  	document.querySelector("#idJoin") = id;
+	  	location.href="#modal-three";
+	  	
+	  }
+	  
+	  function closeJoinView(submit){
+	  	if(submit){
+	  	}
+	  	document.querySelector("#email1").value= null;
+	  	document.querySelector("#idJoin").value = null;
+	  	location.href="#close";
+	  	
+	  }
+	  
+	  
 	  function doOtherKeyUp(e){
 	  	if(e.keyCode == RETURN_KEY){
 	  		doDBSearch();
@@ -503,15 +519,16 @@ p {
    <div class="modal" id="modal-three" aria-hidden="true">
   		<div class="modal-dialog">
     		<div class="modal-header">
-      			<h2>Create an Event!</h2>
+      			<h2>Join an Event!</h2>
       			<a href="#close" class="btn-close" aria-hidden="true">×</a> <!--CHANGED TO "#close"-->
     		</div>
     		<div class="modal-body">
-      			<label for="#email1">Your email</label><input type="text" id="email" value="Email"/></br>
+      			<label for="#email1">Your email</label><input type="text" id="email1" value="Email"/></br>
+      			<input type="hidden" id="idJoin" value=""/>
     		</div>
     		<div class="modal-footer">
-    			<button onclick="closeModalView(false);" class="btn">Cancel</button>
-      			<button onclick="closeModalView(true);" class="btn">Submit</button>  <!--CHANGED TO "#close"-->
+    			<button onclick="closeJoinView(false);" class="btn">Cancel</button>
+      			<button onclick="closeJoinView(true);" class="btn">Submit</button>  <!--CHANGED TO "#close"-->
     		</div>
     	</div>
     </div>
