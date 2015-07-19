@@ -11,6 +11,15 @@
   text-align: center;
 }
 
+input {
+  margin-top: 20px;
+}
+
+button {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
 p {
   margin-bottom: 20px;
 }
@@ -321,10 +330,12 @@ p {
 <div align="center" id="content">
 	<!--<h1><?php echo "This is embedded php!"?></h1>--!>
 	<div>
-	<label>What kind of event do you want to find? -&gt;</label> <input id="searchterm" type="text" size="20" maxlength="20" value="Stuff" autofocus /> 
+	<div>
+	<label>What kind of event do you want to find? -&gt;</label> <input id="searchterm" type="text" size="20" maxlength="20" placeholder="e.g. Concerts" autofocus /> 
 	</div>
 	<div>
-	<label>What city-&gt;</label> <input id="city" type="text" size="31" maxlength="31" value="Rochester" autofocus/>
+	<div>
+	<label>Location -&gt;</label> <input id="city" type="text" size="31" maxlength="31" placeholder="City, State or Zipcode" autofocus/>
 	</div>
 	<button type="button" id="search">Find Events in Eventful!</button>
 	<button type="button" id="osearch">Find Viasat Events!</button>
@@ -333,7 +344,7 @@ p {
 	</div>--!>
 	<div id="map-div"></div>
 	<div id="dynamicContent">
-		<p>No data yet!</p>
+		<p>Search results will be shown here</p>
 	</div>
 	<!-- Modal -->
 	<div class="modal" id="modal-one" aria-hidden="true">
