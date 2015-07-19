@@ -10,9 +10,6 @@
   padding: 40px;
   text-align: center;
 }
-input {
-  margin-top: 20px;
-}
 p {
   margin-bottom: 20px;
   text-align: center;
@@ -448,15 +445,13 @@ p {
 <div align="center" id="content">
 	<!--<h1><?php echo "This is embedded php!"?></h1>--!>
 	<div style="float:left; width:50%;">
-	<label>What kind of event do you want to find? -&gt;</label> <input id="searchterm" type="text" size="20" maxlength="20" placeholder="e.g. Concerts" autofocus /> </br>
-	<label>Location -&gt;</label> <input id="city" type="text" size="31" maxlength="31" placeholder="City, State or Zipcode" autofocus/></br>
+	<label>What kind of event do you want to find? -&gt;</label> <input id="searchterm" type="text" size="20" placeholder="e.g. Concerts" autofocus /> </br>
+	<label>Location -&gt;</label> <input id="city" type="text" size="31" maxlength="31" margin-top="20px" placeholder="City, State or Zipcode" autofocus/></br>
 	<button type="button" id="search">Find Events in Eventful!</button>
 	</div>
 	<div style="float:right width:50%;">
-	<label>How do you want to search our current viasat events? (1 for by name, 2 for by location, or 3 for by date)</label><input id="typeOfSearch" type="number"/>
-	</br> 
-	<label>Search Term for existing viasat events</label> <input id="DBsearchTerm" type="text" size="20" placeholder="name, place or date"/>
-	</br>
+	<label>How do you want to search our current Viasat events? <br />(1 for by name, 2 for by location, or 3 for by date)</label> <input id="typeOfSearch" type="number"/></br>
+	<label>Search term for existing Viasat events</label> <input id="DBsearchTerm" type="text" size="20" placeholder="name, place, or date"/>
 	<button type="button" id="osearch">Find Viasat Events!</button>
 	</div>
 	<br>
