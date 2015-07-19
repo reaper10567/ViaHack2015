@@ -2,7 +2,6 @@
 	define("PATH_TO_DB","Events.sqlite");
 	
 	function open_db(){
-		echo(file_exists(PATH_TO_DB));
 		if(file_exists(PATH_TO_DB)){
 			// open DB
 			$db = new PDO('sqlite:' . PATH_TO_DB);
