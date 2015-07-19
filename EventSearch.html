@@ -275,6 +275,17 @@ p {
 		
 		function closeModalView(addToDB){
 			if(addToDB){
+				var n = document.querySelector("#name").value;
+				var loc = document.querySelector("#loc").value;
+				var sT = document.querySelector("#startTime").value;
+				var lat = document.querySelector("#lat").value;
+				var lng = document.querySelector("#lng").value;
+				var e = document.querySelector("#email").value;
+				var myUrl = "setDBInfo.php?u=testuser&n="+n+"&t="+sT+"&a="+loc+"&e="+e+"&la="+lat+"&ln="+lng+"&k=testkey";
+				
+				var xmlHttp = new XMLHttpRequest();
+				xmlHttp.open("POST",myUrl,true);
+				xmlHttp.send(null);
 			}
 			document.querySelector("#name").value = null;
 			document.querySelector("#loc").value = null;
@@ -282,6 +293,7 @@ p {
 			document.querySelector("#endTime").value = null;
 			document.querySelector("#lat").value = null;
 			document.querySelector("#lng").value = null;
+			document.querySelector("#email").value = null;
 			location.href = "#close";
 		}
 		

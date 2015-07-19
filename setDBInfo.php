@@ -31,7 +31,7 @@
 		if ($numRows == 0) die("Bad username or key!");
 		echo("user is correct");
 		//insert data into the table!
-		$queryString = ("INSERT INTO Events (ID, EventName, Location, Emails, PhoneNumbers, DateTime, Creator, Lat, Long, Reminder) VALUES (NULL, '$name', '$address', '$email', NULL, '$startTime', '$email', '$latitude', '$longitude', 'False')");
+		$queryString = ("INSERT INTO Events (ID, EventName, Location, Emails, DateTime, Creator, Lat, Long, Reminder) VALUES (NULL, '$name', '$address', '$email', '$startTime', '$email', '$latitude', '$longitude', 'False')");
 		
 		echo ("\$queryString=$queryString<br>");
 		$result = $db->query($queryString);
