@@ -259,6 +259,12 @@ p {
 	  
 	  function closeJoinView(submit){
 	  	if(submit){
+	  		if(!(document.querySelector("#email1").value.indexOf("@viasat.com") >-1))
+	  		{
+	  			document.querySelector("#errorMessage").innerHTML = "Error! Must use a viasat email! Please try again!";
+	  			location.href = "#modal-two";
+	  			return;
+	  		}
 	  	}
 	  	document.querySelector("#email1").value= null;
 	  	document.querySelector("#idJoin").value = null;
@@ -349,6 +355,12 @@ p {
 				var lat = document.querySelector("#lat").value;
 				var lng = document.querySelector("#lng").value;
 				var e = document.querySelector("#email").value;
+				if(!(e.indexOf("@viasat.com") >-1))
+	  			{
+	  				document.querySelector("#errorMessage").innerHTML = "Error! Must use a viasat email! Please try again!";
+	  				location.href = "#modal-two";
+	  				return;
+	  			}
 				var myUrl = "setDBInfo.php?u=testuser&n="+n+"&t="+sT+"&a="+loc+"&e="+e+"&la="+lat+"&ln="+lng+"&k=testkey";
 				
 				var xmlHttp = new XMLHttpRequest();
